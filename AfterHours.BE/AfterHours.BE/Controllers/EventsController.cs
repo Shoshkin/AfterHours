@@ -25,21 +25,30 @@ namespace AfterHours.BE.Controllers
         {
             foreach (var e in db.Events.Where(e => e.IsOpen))
             {
-                yield return new PreviewEvent()
+                if (e.StartTime>=DateTime.Now)
                 {
-                    EventId = e.EventId,
-                    Name = e.EventName,
-                    Place = e.Place,
-                    Category = e.Category,
-                    IsOpen = e.IsOpen,
-                    StartTime = e.StartTime,
-                    EndTime = e.EndTime,
-                    Tags = e.Tags,
-                    MinAttandence = e.MinLimit,
-                    MaxAttandence = e.MaxLimit,
-                    CurrentAttandance = GetAttendance(e)
-                };
+                    yield return new PreviewEvent()
+                    {
+                        EventId = e.EventId,
+                        Name = e.EventName,
+                        Place = e.Place,
+                        Category = e.Category,
+                        IsOpen = e.IsOpen,
+                        StartTime = e.StartTime,
+                        EndTime = e.EndTime,
+                        Tags = e.Tags,
+                        MinAttandence = e.MinLimit,
+                        MaxAttandence = e.MaxLimit,
+                        CurrentAttandance = GetAttendance(e)
+                    };
+                }
+                else
+                {
+                    e.isOpen = false;                    
+                }
+                
             }
+            db.SaveChanges();
         }
 
         // GET: api/Events/5
