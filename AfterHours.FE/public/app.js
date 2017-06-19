@@ -3,7 +3,7 @@
 
     var app = angular.module("AfterHours", [
         'ui.router',
-        'ui.bootstrap',
+        // 'ui.bootstrap',
         'angular-locker'
     ]);
     app.config.$inject = ["$locationProvider", "$stateProvider", "$urlRouterProvider", "lockerProvider"];
@@ -14,21 +14,20 @@
                 controller: "Root",
                 templateUrl: "components/root/partial.html"
             })
-            .state("root.signin", {
-                url: "/signin",
-                controller: "Signin",
-                templateUrl: "components/signin/partial.html"
-            })
             .state("root.home", {
                 url: "/",
                 controller: "Home",
                 templateUrl: "components/home/partial.html"
             })
-            .state("event", {
-                url "event"
-                parent: "root",
-                controller: "Event",
-                templateUrl: "components/event/partial.html"
+            .state("root.signin", {
+                url: "/signin",
+                controller: "Signin",
+                templateUrl: "components/signin/partial.html"
+            })
+            .state("root.event", {
+                url: "/add",
+                controller: "Add",
+                templateUrl: "components/add/partial.html"
             });
 
 
