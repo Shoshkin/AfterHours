@@ -23,7 +23,7 @@ namespace AfterHours.BE.Controllers
         // GET: api/Events
         public IEnumerable<PreviewEvent> GetEventsPreview()
         {
-            foreach (var e in db.Events)
+            foreach (var e in db.Events.Where(e => e.IsOpen))
             {
                 yield return new PreviewEvent()
                 {
@@ -70,8 +70,10 @@ namespace AfterHours.BE.Controllers
                 Users = db.Attendances.Where(a => a.EventId == @event.EventId)
                 .AsEnumerable()
                 .Select(a => new AttendedUser()
-                { Username = a.User.Username,
-                    IsOrganizer = IsUserOrganizer(a.EventId, a.UserId) })
+                {
+                    Username = a.User.Username,
+                    IsOrganizer = IsUserOrganizer(a.EventId, a.UserId)
+                })
                 .ToList()
             };
             return Ok(detailedEvent);
@@ -109,6 +111,33 @@ namespace AfterHours.BE.Controllers
             await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = @event.EventId }, @event);
+        }
+
+        // DELETE: api/Events/3
+        [ResponseType(typeof(void))]
+        public async Task<IHttpActionResult> DeleteEvent(int eventId)
+        {
+            var authResult = UserAuth.IsUserAuth(db, Request);
+            if (authResult.Result != UserAuthResult.OK)
+            {
+                return Unauthorized();
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (db.Organizers.Any(o => o.EventId == eventId && o.UserId == authResult.User.UserId))
+            {
+                Event e = await db.Events.FindAsync(eventId);
+                e.IsOpen = false;
+                await db.SaveChangesAsync();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Not an organizer, can't delete event");
+            }
         }
 
         protected override void Dispose(bool disposing)
