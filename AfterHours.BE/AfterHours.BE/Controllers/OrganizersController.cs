@@ -11,6 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using AfterHours.BE;
 using AfterHours.BE.Models;
+using AfterHours.BE.Auth;
 
 namespace AfterHours.BE.Controllers
 {
@@ -18,64 +19,26 @@ namespace AfterHours.BE.Controllers
     {
         private EventsContext db = new EventsContext();
 
-        // GET: api/Organizers
-        public IQueryable<Organizer> GetOrganizers()
-        {
-            return db.Organizers;
-        }
-
-        // GET: api/Organizers/5
-        [ResponseType(typeof(Organizer))]
-        public async Task<IHttpActionResult> GetOrganizer(int id)
-        {
-            Organizer organizer = await db.Organizers.FindAsync(id);
-            if (organizer == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(organizer);
-        }
-
-        // PUT: api/Organizers/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutOrganizer(int id, Organizer organizer)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != organizer.OrganizerId)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(organizer).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!OrganizerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
         // POST: api/Organizers
         [ResponseType(typeof(Organizer))]
-        public async Task<IHttpActionResult> PostOrganizer(Organizer organizer)
+        [HttpPost]
+        public async Task<IHttpActionResult> AddOrganizer(Organizer organizer)
         {
+            var authResult = UserAuth.IsUserAuth(db, Request);
+            if (authResult.Result != UserAuthResult.OK)
+            {
+                return Unauthorized();
+            }
+            if(!db.Organizers.Any(o => o.EventId == organizer.EventId && o.UserId == authResult.User.UserId))
+            {
+                // requester is not an organizer of the event.
+                return Unauthorized();
+            }
+            if(db.Organizers.Any(o => o.EventId == organizer.EventId && o.UserId == organizer.UserId))
+            {
+                // user already organizer
+                return BadRequest();
+            }
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -87,21 +50,21 @@ namespace AfterHours.BE.Controllers
             return CreatedAtRoute("DefaultApi", new { id = organizer.OrganizerId }, organizer);
         }
 
-        // DELETE: api/Organizers/5
-        [ResponseType(typeof(Organizer))]
-        public async Task<IHttpActionResult> DeleteOrganizer(int id)
-        {
-            Organizer organizer = await db.Organizers.FindAsync(id);
-            if (organizer == null)
-            {
-                return NotFound();
-            }
+        //// DELETE: api/Organizers/5
+        //[ResponseType(typeof(Organizer))]
+        //public async Task<IHttpActionResult> DeleteOrganizer(int id)
+        //{
+        //    Organizer organizer = await db.Organizers.FindAsync(id);
+        //    if (organizer == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            db.Organizers.Remove(organizer);
-            await db.SaveChangesAsync();
+        //    db.Organizers.Remove(organizer);
+        //    await db.SaveChangesAsync();
 
-            return Ok(organizer);
-        }
+        //    return Ok(organizer);
+        //}
 
         protected override void Dispose(bool disposing)
         {
