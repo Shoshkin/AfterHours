@@ -6,6 +6,7 @@ if sys.argv == 1:
     exit(1)
 
 arguments = sys.argv[1].split(';')
+print(arguments)
 to_list = arguments[0].split(',')
 invitation_subject = arguments[1]
 start_time = arguments[2]

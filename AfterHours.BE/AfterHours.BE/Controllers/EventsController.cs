@@ -13,6 +13,7 @@ using AfterHours.BE;
 using AfterHours.BE.Models;
 using AfterHours.BE.Models.Application;
 using AfterHours.BE.Auth;
+using AfterHours.BE.Helpers;
 
 namespace AfterHours.BE.Controllers
 {

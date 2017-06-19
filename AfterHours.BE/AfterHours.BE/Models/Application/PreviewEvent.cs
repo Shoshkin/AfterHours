@@ -13,7 +13,7 @@ namespace AfterHours.BE.Models.Application
         public string Category { get; set; }
         public string Tags { get; set; }
         public DateTime StartTime { get; set; }
-        public DateTime? EndTime { get; set; }
+        public DateTime EndTime { get; set; }
         public int? MinAttandence { get; set; }
         public int? MaxAttandence { get; set; }
         public int CurrentAttandance { get; set; }

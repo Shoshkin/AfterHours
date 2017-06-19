@@ -12,6 +12,7 @@ using System.Web.Http.Description;
 using AfterHours.BE;
 using AfterHours.BE.Models;
 using AfterHours.BE.Auth;
+using AfterHours.BE.Helpers;
 
 namespace AfterHours.BE.Controllers
 {
@@ -34,6 +35,22 @@ namespace AfterHours.BE.Controllers
                 db.Attendances.Add(attendance);
 
                 await db.SaveChangesAsync();
+
+                Event eventAttended = db.Events.Single(x => x.EventId == eventId);
+                List<User> currentPeopleInEvent = db.Attendances.Where(x => x.EventId == eventId)
+                    .Select(x=>x.User).ToList();
+
+                if(!eventAttended.MinLimit.HasValue || currentPeopleInEvent.Count > eventAttended.MinLimit)
+                {
+                    EmailSender.SendInvitationEmail(eventAttended.EventName, 
+                        new string[] { res.User.Email }, eventAttended.StartTime, eventAttended.EndTime);
+                }
+                else if(currentPeopleInEvent.Count == eventAttended.MinLimit)
+                {
+                    EmailSender.SendInvitationEmail(eventAttended.EventName, 
+                        currentPeopleInEvent.Select(x=>x.Email), eventAttended.StartTime, eventAttended.EndTime);
+                }
+
                 return Ok();
             }
             else

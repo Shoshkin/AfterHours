@@ -32,6 +32,7 @@ def send_invitation_message(mail, password, to_list, mail_subject, start_time, e
     dtstart = start_time
     dtend = end_time
     dtstamp = datetime.datetime.now().strftime("%Y%m%dT%H%M%SZ")
+    print(dtstart, dtend, dtstamp)
 
     description = description + CRLF
     attendee = ""
