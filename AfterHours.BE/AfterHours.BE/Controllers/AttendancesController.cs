@@ -41,7 +41,7 @@ namespace AfterHours.BE.Controllers
             if (res.Result != UserAuthResult.OK)
                 return Unauthorized();
 
-            Attendance attendance = await db.Attendances.FindAsync(res.User.UserId);
+            Attendance attendance = db.Attendances.SingleOrDefault(x => x.UserId == res.User.UserId && x.EventId == eventId);
             if (attendance == null)
             {
                 return NotFound();
