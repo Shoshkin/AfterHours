@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -14,11 +15,12 @@ namespace AfterHours.BE.Models
         public int? MaxLimit { get; set; }
         public string Tags { get; set; }
         public string Description { get; set; }
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int EventId { get; set; }
         public bool IsOpen { get; set; }
         public string Place { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
+        public DateTime CreateTime { get; set; }
     }
 }

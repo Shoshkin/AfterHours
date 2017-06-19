@@ -7,17 +7,18 @@ using System.Web;
 
 namespace AfterHours.BE.Models
 {
-    public class Attendance
+    public class Comment
     {
-        [Key]
-        public int AttendanceId { get; set; }
-        public int UserId { get; set; }
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int CommentId { get; set; }
         public int EventId { get; set; }
-        public bool IsGoing { get; set; }
+        public int UserId { get; set; }
+        public string Content { get; set; }
+        public DateTime CommentTime { get; set; }
 
-        [ForeignKey(nameof(UserId))]
-        public User User { get; set; }
         [ForeignKey(nameof(EventId))]
         public Event Event { get; set; }
+        [ForeignKey(nameof(UserId))]
+        public User User { get; set; }
     }
 }

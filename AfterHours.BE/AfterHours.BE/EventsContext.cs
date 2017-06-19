@@ -13,5 +13,6 @@ namespace AfterHours.BE
         public DbSet<Organizer> Organizers { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
+        public DbSet<Comment> Comments { get; set; }
     }
 }

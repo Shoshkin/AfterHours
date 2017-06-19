@@ -9,7 +9,7 @@ namespace AfterHours.BE.Models
 {
     public class Organizer
     {
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int OrganizerId { get; set; }
         public int EventId { get; set; }
         public int UserId { get; set; }
