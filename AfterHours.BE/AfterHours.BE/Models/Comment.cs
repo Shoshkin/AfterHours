@@ -9,7 +9,7 @@ namespace AfterHours.BE.Models
 {
     public class Comment
     {
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CommentId { get; set; }
         public int EventId { get; set; }
         public int UserId { get; set; }

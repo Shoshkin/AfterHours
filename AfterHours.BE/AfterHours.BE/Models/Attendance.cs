@@ -9,7 +9,7 @@ namespace AfterHours.BE.Models
 {
     public class Attendance
     {
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AttendanceId { get; set; }
         public int UserId { get; set; }
         public int EventId { get; set; }
