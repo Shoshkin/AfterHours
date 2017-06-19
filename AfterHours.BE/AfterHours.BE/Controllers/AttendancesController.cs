@@ -35,7 +35,7 @@ namespace AfterHours.BE.Controllers
         }
 
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PostRemoveAttendingUser(int eventId)
+        public async Task<IHttpActionResult> RemoveAttendingUser(int eventId)
         {
             AuthResult res = Auth.UserAuth.IsUserAuth(db, Request);
             if (res.Result != UserAuthResult.OK)
