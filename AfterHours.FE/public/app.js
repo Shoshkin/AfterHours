@@ -3,19 +3,23 @@
 
     var app = angular.module("AfterHours", [
         'ui.router'
+        // 'ui.bootstrap'
     ]);
-    app.config.$inject = ["$locationProvider", "$stateProvider"];
-    app.config(function ($locationProvider, $stateProvider) {
-        $locationProvider.html5Mode(true);
-
+    app.config.$inject = ["$locationProvider", "$stateProvider", "$urlRouterProvider"];
+    app.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
         $stateProvider
             .state("root", {
+                abstract: true,
                 controller: "Root",
                 templateUrl: "components/root/partial.html"
             })
-            .state("home", {
+            .state("root.login", {
+                url: "/login",
+                controller: "Login",
+                templateUrl: "components/login/partial.html"
+            })
+            .state("root.home", {
                 url: "/",
-                parent: "root",
                 controller: "Home",
                 templateUrl: "components/home/partial.html"
             })
@@ -25,5 +29,10 @@
                 controller: "Event",
                 templateUrl: "components/event/partial.html"
             });
+
+
+        $locationProvider.html5Mode(true);
+        // $urlRouterProvider.otherwise("/template1");
+        $urlRouterProvider.otherwise('/');
     });
 })();

@@ -3,7 +3,9 @@
 
     var app = angular.module("AfterHours");
     app.$inject = ["$scope"];
-    app.controller("Home", function ($scope) {
+    app.controller("Login", function ($scope) {
+        $scope.login = function (username, password) {
 
+        }
     });
 })();
