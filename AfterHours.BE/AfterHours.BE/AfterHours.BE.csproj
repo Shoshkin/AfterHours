@@ -196,6 +196,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Application\AttendedUser.cs" />
+    <Compile Include="Models\Application\DetailedEvent.cs" />
+    <Compile Include="Models\Application\EventComment.cs" />
+    <Compile Include="Models\Application\PreviewEvent.cs" />
     <Compile Include="Models\Db\Attendance.cs" />
     <Compile Include="Models\Db\Comment.cs" />
     <Compile Include="Models\Db\Event.cs" />
@@ -257,7 +261,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Application\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
