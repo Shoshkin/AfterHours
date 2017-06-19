@@ -2,22 +2,43 @@
     'use strict';
 
     var app = angular.module("AfterHours", [
-        'ui.router'
+        'ui.router',
+        // 'ui.bootstrap',
+        'angular-locker'
     ]);
-    app.config.$inject = ["$locationProvider", "$stateProvider"];
-    app.config(function ($locationProvider, $stateProvider) {
-        $locationProvider.html5Mode(true);
-
+    app.config.$inject = ["$locationProvider", "$stateProvider", "$urlRouterProvider", "lockerProvider"];
+    app.config(function ($locationProvider, $stateProvider, $urlRouterProvider, lockerProvider) {
         $stateProvider
             .state("root", {
+                abstract: true,
                 controller: "Root",
                 templateUrl: "components/root/partial.html"
             })
-            .state("home", {
+            .state("root.home", {
                 url: "/",
-                parent: "root",
                 controller: "Home",
                 templateUrl: "components/home/partial.html"
+            })
+            .state("root.signin", {
+                url: "/signin",
+                controller: "Signin",
+                templateUrl: "components/signin/partial.html"
+            })
+            .state("root.event", {
+                url: "/add",
+                controller: "Add",
+                templateUrl: "components/add/partial.html"
             });
+
+
+        $locationProvider.html5Mode(true);
+        // $urlRouterProvider.otherwise("/template1");
+        $urlRouterProvider.otherwise('/');
+
+        lockerProvider.defaults({
+            driver: 'session',
+            namespace: 'after-hours',
+            separator: '.'
+        });
     });
 })();
