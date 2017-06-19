@@ -1,0 +1,105 @@
+body ,h1, h2, h3, h4, h5, p, span
+{
+  font-family: tahoma;
+  padding: 0;
+  margin: 0;
+}
+
+a
+{
+  color: #000;
+  text-decoration: none;
+}
+
+.head
+{
+  padding: 3px 0 3px 0;
+  width: 100%;
+  min-height: 50px;
+
+    background-color: #272a4e;
+    border-bottom: 3px solid #272a4e;
+}
+
+
+.navigation li
+{
+  font-weight: bold;
+  list-style-type: none;
+  float: right;
+  padding-left: 40px;
+}
+
+.navigation li a
+{
+  color: #fff;
+  text-decoration: none;
+}
+
+.navigation li a:hover
+{
+  color: #1396e2;
+}
+
+.navigation #last
+{
+  float: left;
+}
+
+.navigation #last .tag
+{
+  float: left;
+background-color: #1396e2;
+border-radius: 7px;
+/* font-size: 11px; */
+margin: -5px 0px 0px 0px;
+padding: 5px 10px;
+font-weight: bold;
+color: #fff;
+}
+
+.container
+{
+  text-align: center;
+  background-color: #272a4e;
+  padding: 50px;
+}
+
+.slogan
+{
+  color: #fff;
+  text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+
+.slogan h1
+{
+  margin: 0;
+  font-size: 6em;
+}
+
+.slogan h2
+{
+  font-family: monospace;
+  font-size: 25px;
+}
+
+.search #search-input
+{
+    padding: 15px 20px 15px 20px;
+    width: 40%;
+    font-size: 15px;
+    border-radius: 19px;
+    margin-top: 4%;
+    border: 0;
+}
+
+.footer
+{
+  margin-top: 30px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #272a4e;
+  text-align: center;
+  padding: 10px 0 10px 0;
+  width: 100%;
+}
