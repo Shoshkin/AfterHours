@@ -25,6 +25,7 @@ namespace AfterHours.BE.Controllers
         {
             return db.Events.Select(e => new PreviewEvent()
             {
+                EventId = e.EventId,
                 Name = e.EventName,
                 Place = e.Place,
                 Category = e.Category,

@@ -20,7 +20,8 @@ namespace AfterHours.BE.Controllers
         private EventsContext db = new EventsContext();
 
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PostAddAttendingUser(int eventId)
+        [HttpPost]
+        public async Task<IHttpActionResult> AddAttendingUser(int eventId)
         {
             AuthResult res = Auth.UserAuth.IsUserAuth(db, Request);
             if (res.Result != UserAuthResult.OK)
@@ -35,6 +36,7 @@ namespace AfterHours.BE.Controllers
         }
 
         [ResponseType(typeof(void))]
+        [HttpDelete]
         public async Task<IHttpActionResult> RemoveAttendingUser(int eventId)
         {
             AuthResult res = Auth.UserAuth.IsUserAuth(db, Request);
