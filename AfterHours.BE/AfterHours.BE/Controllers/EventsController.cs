@@ -68,7 +68,10 @@ namespace AfterHours.BE.Controllers
                 .ToList(),
                 CurrentAttandance = GetAttendance(@event),
                 Users = db.Attendances.Where(a => a.EventId == @event.EventId)
-                .Select(a => new AttendedUser() { Username = a.User.Username, IsOrganizer = IsUserOrganizer(a.EventId, a.UserId) })
+                .AsEnumerable()
+                .Select(a => new AttendedUser()
+                { Username = a.User.Username,
+                    IsOrganizer = IsUserOrganizer(a.EventId, a.UserId) })
                 .ToList()
             };
             return Ok(detailedEvent);
