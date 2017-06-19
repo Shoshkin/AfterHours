@@ -21,5 +21,6 @@ namespace AfterHours.BE.Models
         public string Place { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
+        public DateTime CreateTime { get; set; }
     }
 }
