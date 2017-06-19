@@ -18,6 +18,12 @@
                 parent: "root",
                 controller: "Home",
                 templateUrl: "components/home/partial.html"
+            })
+            .state("event", {
+                url "event"
+                parent: "root",
+                controller: "Event",
+                templateUrl: "components/event/partial.html"
             });
     });
 })();
