@@ -192,6 +192,7 @@
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrganizersController.cs" />
+    <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="EventsContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -205,6 +206,7 @@
     <Compile Include="Models\Db\Comment.cs" />
     <Compile Include="Models\Db\Event.cs" />
     <Compile Include="Models\Db\Organizer.cs" />
+    <Compile Include="Models\Db\Tag.cs" />
     <Compile Include="Models\Db\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

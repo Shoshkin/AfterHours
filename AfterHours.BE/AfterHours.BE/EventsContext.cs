@@ -1,4 +1,5 @@
 ﻿using AfterHours.BE.Models;
+using AfterHours.BE.Models.Db;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -14,5 +15,6 @@ namespace AfterHours.BE
         public DbSet<Event> Events { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Tag> Tags { get; set; }
     }
 }

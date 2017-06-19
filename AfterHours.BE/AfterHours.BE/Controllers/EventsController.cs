@@ -14,6 +14,7 @@ using AfterHours.BE.Models;
 using AfterHours.BE.Models.Application;
 using AfterHours.BE.Auth;
 using AfterHours.BE.Helpers;
+using AfterHours.BE.Models.Db;
 
 namespace AfterHours.BE.Controllers
 {
@@ -26,21 +27,30 @@ namespace AfterHours.BE.Controllers
         {
             foreach (var e in db.Events.Where(e => e.IsOpen))
             {
-                yield return new PreviewEvent()
+                if (e.StartTime>=DateTime.Now)
                 {
-                    EventId = e.EventId,
-                    Name = e.EventName,
-                    Place = e.Place,
-                    Category = e.Category,
-                    IsOpen = e.IsOpen,
-                    StartTime = e.StartTime,
-                    EndTime = e.EndTime,
-                    Tags = e.Tags,
-                    MinAttandence = e.MinLimit,
-                    MaxAttandence = e.MaxLimit,
-                    CurrentAttandance = GetAttendance(e)
-                };
+                    yield return new PreviewEvent()
+                    {
+                        EventId = e.EventId,
+                        Name = e.EventName,
+                        Place = e.Place,
+                        Category = e.Category,
+                        IsOpen = e.IsOpen,
+                        StartTime = e.StartTime,
+                        EndTime = e.EndTime,
+                        Tags = e.Tags,
+                        MinAttandence = e.MinLimit,
+                        MaxAttandence = e.MaxLimit,
+                        CurrentAttandance = GetAttendance(e)
+                    };
+                }
+                else
+                {
+                    e.IsOpen = false;                    
+                }
+                
             }
+            db.SaveChanges();
         }
 
         // GET: api/Events/5
@@ -106,6 +116,12 @@ namespace AfterHours.BE.Controllers
                 return BadRequest(ModelState);
             }
 
+            var tags = @event.Tags.Split(',').Select(t => new Tag { Value = t });
+            foreach (var tag in tags)
+            {
+                if (!db.Tags.Any(t => t.Value == tag.Value))
+                    db.Tags.Add(tag);
+            }
             db.Events.Add(@event);
             db.Attendances.Add(new Attendance { IsGoing = true, UserId = authResult.User.UserId, EventId = @event.EventId });
             db.Organizers.Add(new Organizer { EventId = @event.EventId, UserId = authResult.User.UserId });
