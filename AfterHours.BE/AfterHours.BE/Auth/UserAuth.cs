@@ -33,7 +33,7 @@ namespace AfterHours.BE.Auth
             AuthResult authResult = new AuthResult();
             User currUser = ParseAuthorizationHeader(request);
 
-            User user = context.Users.First(entry => entry.Username == currUser.Username);
+            User user = context.Users.FirstOrDefault(entry => entry.Username == currUser.Username);
             if (user == null)
             {
                 authResult.Result = UserAuthResult.UserNotRegistered;

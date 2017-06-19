@@ -24,6 +24,9 @@ namespace AfterHours.BE.Controllers
         [Route("api/register")]
         public async Task<IHttpActionResult> Register(User user)
         {
+            if (db.Users.Any(entry => entry.Username == user.Username))
+                return BadRequest("user already exist");
+
             db.Users.Add(user);
             await db.SaveChangesAsync();
             return Ok();
