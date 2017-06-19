@@ -20,7 +20,9 @@ namespace AfterHours.BE.Controllers
         private EventsContext db = new EventsContext();
 
         [ResponseType(typeof(User))]
-        public async Task<IHttpActionResult> PostRegister(User user)
+        [HttpPost]
+        [Route("api/register")]
+        public async Task<IHttpActionResult> Register(User user)
         {
             db.Users.Add(user);
             await db.SaveChangesAsync();
@@ -28,7 +30,9 @@ namespace AfterHours.BE.Controllers
         }
 
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PostLogin()
+        [HttpPost]
+        [Route("api/login")]
+        public async Task<IHttpActionResult> Login()
         {
             AuthResult authRes = Auth.UserAuth.IsUserAuth(db, Request);
             if (authRes.Result != UserAuthResult.OK)
