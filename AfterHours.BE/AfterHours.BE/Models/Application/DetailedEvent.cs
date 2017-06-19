@@ -9,6 +9,6 @@ namespace AfterHours.BE.Models.Application
     {
         public string Description { get; set; }
         public List<AttendedUser> Users { get; set; }
-        public List<EventComment> Commnets { get; set; }
+        public List<EventComment> Comments { get; set; }
     }
 }
