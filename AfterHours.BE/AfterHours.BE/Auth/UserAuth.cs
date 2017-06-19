@@ -7,10 +7,10 @@ using System.Web;
 
 namespace AfterHours.BE.Auth
 {
-    public struct UserInfo
+    public class AuthResult
     {
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        public UserAuthResult Result { get; set; }
+        public User User { get; set; }
     }
 
     public enum UserAuthResult
@@ -22,20 +22,36 @@ namespace AfterHours.BE.Auth
 
     public static class UserAuth
     {
-        public static UserInfo ParseAuthorizationHeader(HttpRequestMessage request)
+        private static User ParseAuthorizationHeader(HttpRequestMessage request)
         {
             var tmp = request.Headers.Authorization.Parameter.Split(',');
-            return new UserInfo { UserName = tmp[0], Password = tmp[1] };
+            return new User { Username= tmp[0], Password = tmp[1] };
         }
 
-        public static UserAuthResult IsUserAuth(EventsContext context, string username, string password)
+        public static AuthResult IsUserAuth(EventsContext context, HttpRequestMessage request)
         {
-            User user = context.Users.First(x => x.Username == username);
+            AuthResult authResult = new AuthResult();
+            User currUser = ParseAuthorizationHeader(request);
+
+            User user = context.Users.First(entry => entry.Username == currUser.Username);
             if (user == null)
-                return UserAuthResult.UserNotRegistered;
+            {
+                authResult.Result = UserAuthResult.UserNotRegistered;
+                return authResult;
+            }
 
-            return user.Password == password ? UserAuthResult.OK : UserAuthResult.PasswordIncorrect;
+            
+            if (user.Password == currUser.Username)
+            {
+                authResult.User = user;
+                authResult.Result = UserAuthResult.OK;
+            }
+            else
+            {
+                authResult.Result = UserAuthResult.PasswordIncorrect;
+            }
 
+            return authResult;
         }
 
         public static bool IsUserOrganizerOfEvent(EventsContext context, string username, int eventid)
