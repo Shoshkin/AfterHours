@@ -17,6 +17,8 @@ a
   padding: 3px 0 3px 0;
   width: 100%;
   min-height: 50px;
+
+    background-color: #272a4e;
     border-bottom: 3px solid #272a4e;
 }
 
@@ -31,7 +33,7 @@ a
 
 .navigation li a
 {
-  color: #272a4e;
+  color: #fff;
   text-decoration: none;
 }
 
@@ -141,6 +143,77 @@ background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
     padding: 5px 10px;
     font-weight: bold;
   }
+
+  .add
+  {
+    width: 25%;
+    margin: auto;
+    padding: 50px 0 0 0;
+  }
+
+  .add h1
+  {
+    text-align: center;
+  }
+
+  .add hr.star-primary {
+      border-color: #2C3E50;
+  }
+  .add hr.star-light, .add hr.star-primary {
+      padding: 0;
+      border: none;
+      border-top: solid 5px;
+      text-align: center;
+    margin: 20px auto 30px;
+  }
+
+ .add hr.star-primary:after {
+    background-color: #fff;
+    color: #2C3E50;
+}
+
+ .add hr.star-light:after, .add hr.star-primary:after {
+    content: "\f005";
+    font-family: FontAwesome;
+    display: inline-block;
+    position: relative;
+    top: -.8em;
+    font-size: 2em;
+    padding: 0 .25em;
+}
+
+.form input, .form select
+{
+  height: 30px;
+  width: 100%;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2) inset;
+    -webkit-appearance: none;
+    background-color: #f3f3f3;
+    border: none;
+
+    color: #5a5a5a;
+    font-size: 14px;
+    outline: none !important;
+    padding: 10px 9px 11px 9px;
+    width: 95%;
+    height: inherit;
+
+    margin: 0px 0 12px 0;
+}
+
+.form select
+{
+padding: 10px 9px 9px 9px;
+width: 100%;
+}
+
+.form label
+{
+    font-weight: bold;
+    color: #1f1f1f;
+    display: inline-block;
+    margin-bottom: 5px;
+}
 
 .footer
 {
