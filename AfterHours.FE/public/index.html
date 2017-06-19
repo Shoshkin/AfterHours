@@ -3,15 +3,66 @@
 <head>
     <base href="/">
     <meta charset="utf-8">
-    <title>After Hours</title>
-    <link rel="stylesheet" href="node_modules/html5-boilerplate/dist/css/normalize.css">
-    <link rel="stylesheet" href="node_modules/html5-boilerplate/dist/css/main.css">
-    <script src="node_modules/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+        <title>My AngularJS App</title>
+        <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+        <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+        <link href="https://fonts.googleapis.com/css?family=Alex+Brush" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
 <body>
 <div ui-view></div>
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div ng-app>
+
+  <div class="head">
+    <div class="navigation">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Hot</a></li>
+        <li><a href="#">Trending</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container">
+
+      <div class="slogan">
+        <h1>After Hours</h1>
+        <h2>Events. For all.</h2>
+      </div>
+
+      <div class="search">
+          <form method="get">
+            <input id="search-input" type="text" placeholder="Enter some text here..."/>
+          </form>
+      </div>
+  </div>
+
+  <div class="main">
+    <div class="box">
+      <a href="">
+      <div class="details">
+
+      </div>
+      </a>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <span>© Starcraft Team 2017</span>
+  </div>
+
+</div>
 </body>
+
+<!--<div>Angular seed app: v<span app-version></span></div> -->
 
 <script src="node_modules/angular/angular.js"></script>
 <script src="node_modules/@uirouter/angularjs/release/angular-ui-router.js"></script>
