@@ -11,6 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using AfterHours.BE;
 using AfterHours.BE.Models;
+using AfterHours.BE.Auth;
 
 namespace AfterHours.BE.Controllers
 {
@@ -18,10 +19,24 @@ namespace AfterHours.BE.Controllers
     {
         private EventsContext db = new EventsContext();
 
-        // GET: api/Users
-        public IQueryable<User> GetUsers()
+        [ResponseType(typeof(User))]
+        public async Task<IHttpActionResult> PostRegister(User user)
         {
-            return db.Users;
+            db.Users.Add(user);
+            await db.SaveChangesAsync();
+            return CreatedAtRoute("DefaultApi", new { id = user.UserId }, user);
+        }
+
+        [ResponseType(typeof(void))]
+        public async Task<IHttpActionResult> PostLogin()
+        {
+            AuthResult authRes = Auth.UserAuth.IsUserAuth(db, Request);
+            if (authRes.Result != UserAuthResult.OK)
+            {
+                return BadRequest(authRes.Result.ToString());
+            }
+
+            return Ok();
         }
 
         // GET: api/Users/5
@@ -33,72 +48,6 @@ namespace AfterHours.BE.Controllers
             {
                 return NotFound();
             }
-
-            return Ok(user);
-        }
-
-        // PUT: api/Users/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutUser(int id, User user)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != user.UserId)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(user).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/Users
-        [ResponseType(typeof(User))]
-        public async Task<IHttpActionResult> PostUser(User user)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Users.Add(user);
-            await db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = user.UserId }, user);
-        }
-
-        // DELETE: api/Users/5
-        [ResponseType(typeof(User))]
-        public async Task<IHttpActionResult> DeleteUser(int id)
-        {
-            User user = await db.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            db.Users.Remove(user);
-            await db.SaveChangesAsync();
 
             return Ok(user);
         }

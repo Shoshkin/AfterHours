@@ -11,6 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using AfterHours.BE;
 using AfterHours.BE.Models;
+using AfterHours.BE.Auth;
 
 namespace AfterHours.BE.Controllers
 {
@@ -18,80 +19,29 @@ namespace AfterHours.BE.Controllers
     {
         private EventsContext db = new EventsContext();
 
-        // GET: api/Attendances
-        public IQueryable<Attendance> GetAttendances()
-        {
-            return db.Attendances;
-        }
-
-        // GET: api/Attendances/5
-        [ResponseType(typeof(Attendance))]
-        public async Task<IHttpActionResult> GetAttendance(int id)
-        {
-            Attendance attendance = await db.Attendances.FindAsync(id);
-            if (attendance == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(attendance);
-        }
-
-        // PUT: api/Attendances/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutAttendance(int id, Attendance attendance)
+        public async Task<IHttpActionResult> PostAddAttendingUser(int eventId)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            AuthResult res = Auth.UserAuth.IsUserAuth(db, Request);
+            if (res.Result != UserAuthResult.OK)
+                return Unauthorized();
 
-            if (id != attendance.AttendanceId)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(attendance).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AttendanceExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/Attendances
-        [ResponseType(typeof(Attendance))]
-        public async Task<IHttpActionResult> PostAttendance(Attendance attendance)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
+            Attendance attendance = new Attendance { UserId = res.User.UserId, EventId = eventId };
             db.Attendances.Add(attendance);
+
             await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = attendance.AttendanceId }, attendance);
         }
 
-        // DELETE: api/Attendances/5
-        [ResponseType(typeof(Attendance))]
-        public async Task<IHttpActionResult> DeleteAttendance(int id)
+        [ResponseType(typeof(void))]
+        public async Task<IHttpActionResult> PostRemoveAttendingUser(int eventId)
         {
-            Attendance attendance = await db.Attendances.FindAsync(id);
+            AuthResult res = Auth.UserAuth.IsUserAuth(db, Request);
+            if (res.Result != UserAuthResult.OK)
+                return Unauthorized();
+
+            Attendance attendance = await db.Attendances.FindAsync(res.User.UserId);
             if (attendance == null)
             {
                 return NotFound();
@@ -99,8 +49,7 @@ namespace AfterHours.BE.Controllers
 
             db.Attendances.Remove(attendance);
             await db.SaveChangesAsync();
-
-            return Ok(attendance);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)
@@ -110,11 +59,6 @@ namespace AfterHours.BE.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool AttendanceExists(int id)
-        {
-            return db.Attendances.Count(e => e.AttendanceId == id) > 0;
         }
     }
 }

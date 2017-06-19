@@ -11,6 +11,8 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using AfterHours.BE;
 using AfterHours.BE.Models;
+using AfterHours.BE.Auth;
+using AfterHours.BE.Models.Application;
 
 namespace AfterHours.BE.Controllers
 {
@@ -18,70 +20,17 @@ namespace AfterHours.BE.Controllers
     {
         private EventsContext db = new EventsContext();
 
-        // GET: api/Comments
-        public IQueryable<Comment> GetComments()
-        {
-            return db.Comments;
-        }
-
-        // GET: api/Comments/5
-        [ResponseType(typeof(Comment))]
-        public async Task<IHttpActionResult> GetComment(int id)
-        {
-            Comment comment = await db.Comments.FindAsync(id);
-            if (comment == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(comment);
-        }
-
-        // PUT: api/Comments/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutComment(int id, Comment comment)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != comment.CommentId)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(comment).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CommentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
         // POST: api/Comments
         [ResponseType(typeof(Comment))]
-        public async Task<IHttpActionResult> PostComment(Comment comment)
+        public async Task<IHttpActionResult> PostAddComment(int eventId, EventComment comment)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            AuthResult res = Auth.UserAuth.IsUserAuth(db, Request);
+            if (res.Result != UserAuthResult.OK)
+                return Unauthorized();
 
-            db.Comments.Add(comment);
+            Comment dbComment = new Comment { CommentTime = DateTime.Now, EventId = eventId, UserId = res.User.UserId };
+
+            db.Comments.Add(dbComment);
             await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = comment.CommentId }, comment);
@@ -91,11 +40,16 @@ namespace AfterHours.BE.Controllers
         [ResponseType(typeof(Comment))]
         public async Task<IHttpActionResult> DeleteComment(int id)
         {
+            AuthResult res = Auth.UserAuth.IsUserAuth(db, Request);
+            if (res.Result != UserAuthResult.OK)
+                return Unauthorized();
+            
             Comment comment = await db.Comments.FindAsync(id);
             if (comment == null)
-            {
                 return NotFound();
-            }
+
+            if (comment.UserId != res.User.UserId)
+                return Unauthorized();
 
             db.Comments.Remove(comment);
             await db.SaveChangesAsync();
