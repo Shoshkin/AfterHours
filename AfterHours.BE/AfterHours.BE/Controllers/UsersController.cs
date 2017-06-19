@@ -39,19 +39,6 @@ namespace AfterHours.BE.Controllers
             return Ok();
         }
 
-        // GET: api/Users/5
-        [ResponseType(typeof(User))]
-        public async Task<IHttpActionResult> GetUser(int id)
-        {
-            User user = await db.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(user);
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
