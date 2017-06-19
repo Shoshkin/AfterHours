@@ -17,33 +17,43 @@ namespace AfterHours.BE.Auth
     {
         UserNotRegistered,
         PasswordIncorrect,
-        OK
+        OK,
+        UserNotLoggedIn
     }
 
     public static class UserAuth
     {
         private static User ParseAuthorizationHeader(HttpRequestMessage request)
         {
-            var tmp = request.Headers.Authorization.Parameter.Split(',');
-            return new User { Username= tmp[0], Password = tmp[1] };
+            IEnumerable<string> headers;
+            request.Headers.TryGetValues("afterHoursAuth", out headers);
+            if (!headers.Any())
+                return null;
+            var tmp = headers.Single().Split(',');
+            return new User { Username = tmp[0], Password = tmp[1] };
         }
 
         public static AuthResult IsUserAuth(EventsContext context, HttpRequestMessage request)
         {
             AuthResult authResult = new AuthResult();
-            User currUser = ParseAuthorizationHeader(request);
+            User userFromRequest = ParseAuthorizationHeader(request);
+            if (userFromRequest == null)
+            {
+                authResult.Result = UserAuthResult.UserNotLoggedIn;
+                return authResult;
+            }
 
-            User user = context.Users.First(entry => entry.Username == currUser.Username);
-            if (user == null)
+            User userFromDb = context.Users.First(entry => entry.Username == userFromRequest.Username);
+            if (userFromDb == null)
             {
                 authResult.Result = UserAuthResult.UserNotRegistered;
                 return authResult;
             }
 
-            
-            if (user.Password == currUser.Username)
+
+            if (userFromDb.Password == userFromRequest.Password)
             {
-                authResult.User = user;
+                authResult.User = userFromDb;
                 authResult.Result = UserAuthResult.OK;
             }
             else

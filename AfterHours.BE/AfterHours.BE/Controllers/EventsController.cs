@@ -21,22 +21,25 @@ namespace AfterHours.BE.Controllers
         private EventsContext db = new EventsContext();
 
         // GET: api/Events
-        public IQueryable<PreviewEvent> GetEventsPreview()
+        public IEnumerable<PreviewEvent> GetEventsPreview()
         {
-            return db.Events.Select(e => new PreviewEvent()
+            foreach (var e in db.Events)
             {
-                EventId = e.EventId,
-                Name = e.EventName,
-                Place = e.Place,
-                Category = e.Category,
-                IsOpen = e.IsOpen,
-                StartTime = e.StartTime,
-                EndTime = e.EndTime,
-                Tags = e.Tags,
-                MinAttandence = e.MinLimit,
-                MaxAttandence = e.MaxLimit,
-                CurrentAttandance = GetAttendance(e)
-            });
+                yield return new PreviewEvent()
+                {
+                    EventId = e.EventId,
+                    Name = e.EventName,
+                    Place = e.Place,
+                    Category = e.Category,
+                    IsOpen = e.IsOpen,
+                    StartTime = e.StartTime,
+                    EndTime = e.EndTime,
+                    Tags = e.Tags,
+                    MinAttandence = e.MinLimit,
+                    MaxAttandence = e.MaxLimit,
+                    CurrentAttandance = GetAttendance(e)
+                };
+            }
         }
 
         // GET: api/Events/5
@@ -73,7 +76,9 @@ namespace AfterHours.BE.Controllers
 
         private int GetAttendance(Event @event)
         {
-            return db.Attendances.Count(a => a.EventId == @event.EventId && a.IsGoing);
+            int eventId = @event.EventId;
+            //TODO: remove the to list
+            return db.Attendances.Count(a => a.EventId == eventId && a.IsGoing);
         }
 
         private bool IsUserOrganizer(int eventId, int userId)
@@ -86,7 +91,7 @@ namespace AfterHours.BE.Controllers
         public async Task<IHttpActionResult> PostEvent(Event @event)
         {
             var authResult = UserAuth.IsUserAuth(db, Request);
-            if(authResult.Result != UserAuthResult.OK)
+            if (authResult.Result != UserAuthResult.OK)
             {
                 return Unauthorized();
             }
