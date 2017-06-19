@@ -16,8 +16,8 @@ namespace AfterHours.BE.Models
         public bool IsGoing { get; set; }
 
         [ForeignKey(nameof(UserId))]
-        public User User { get; set; }
+        public virtual User User { get; set; }
         [ForeignKey(nameof(EventId))]
-        public Event Event { get; set; }
+        public virtual Event Event { get; set; }
     }
 }
