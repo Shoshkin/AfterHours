@@ -2,8 +2,8 @@
     'use strict';
 
     var app = angular.module("AfterHours", [
-        'ui.router'
-        // 'ui.bootstrap'
+        'ui.router',
+        'ui.bootstrap'
     ]);
     app.config.$inject = ["$locationProvider", "$stateProvider", "$urlRouterProvider"];
     app.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
