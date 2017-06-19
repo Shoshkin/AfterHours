@@ -11,6 +11,8 @@
   "dependencies": {
     "@uirouter/angularjs": "^1.0.4",
     "@uirouter/core": "^5.0.4",
-    "angular-ui-router": "^1.0.3"
+    "angular-ui-router": "^1.0.3",
+    "angular": "^1.6.4",
+    "html5-boilerplate": "^0.0.1"
   }
 }
