@@ -27,12 +27,19 @@ namespace AfterHours.BE.Controllers
             if (res.Result != UserAuthResult.OK)
                 return Unauthorized();
 
-            Attendance attendance = new Attendance { UserId = res.User.UserId, EventId = eventId };
-            db.Attendances.Add(attendance);
+            bool isAlreadyAttended = db.Attendances.Any(x => x.EventId == eventId && x.UserId == res.User.UserId);
+            if (!isAlreadyAttended)
+            {
+                Attendance attendance = new Attendance { UserId = res.User.UserId, EventId = eventId, IsGoing = true };
+                db.Attendances.Add(attendance);
 
-            await db.SaveChangesAsync();
-
-            return Ok();
+                await db.SaveChangesAsync();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("user already attending event");
+            }
         }
 
         [ResponseType(typeof(void))]
@@ -49,7 +56,9 @@ namespace AfterHours.BE.Controllers
                 return NotFound();
             }
 
-            db.Attendances.Remove(attendance);
+            attendance.IsGoing = false;
+            db.Entry(attendance).State = EntityState.Modified;
+
             await db.SaveChangesAsync();
             return Ok();
         }
