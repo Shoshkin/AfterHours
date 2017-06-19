@@ -7,6 +7,7 @@ namespace AfterHours.BE.Models.Application
 {
     public class PreviewEvent
     {
+        public int EventId { get; set; }
         public string Name { get; set; }
         public string Place { get; set; }
         public string Category { get; set; }
