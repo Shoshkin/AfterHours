@@ -45,7 +45,7 @@ namespace AfterHours.BE.Controllers
                 }
                 else
                 {
-                    e.isOpen = false;                    
+                    e.IsOpen = false;                    
                 }
                 
             }
