@@ -12,6 +12,7 @@
     "@uirouter/angularjs": "^1.0.4",
     "@uirouter/core": "^5.0.4",
     "angular": "^1.6.4",
+    "angular-locker": "^2.0.5",
     "angular-ui-bootstrap": "^2.5.0",
     "angular-ui-router": "^1.0.3",
     "bootstrap": "^3.3.7",

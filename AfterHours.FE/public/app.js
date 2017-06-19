@@ -3,20 +3,21 @@
 
     var app = angular.module("AfterHours", [
         'ui.router',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'angular-locker'
     ]);
-    app.config.$inject = ["$locationProvider", "$stateProvider", "$urlRouterProvider"];
-    app.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
+    app.config.$inject = ["$locationProvider", "$stateProvider", "$urlRouterProvider", "lockerProvider"];
+    app.config(function ($locationProvider, $stateProvider, $urlRouterProvider, lockerProvider) {
         $stateProvider
             .state("root", {
                 abstract: true,
                 controller: "Root",
                 templateUrl: "components/root/partial.html"
             })
-            .state("root.login", {
-                url: "/login",
-                controller: "Login",
-                templateUrl: "components/login/partial.html"
+            .state("root.signin", {
+                url: "/signin",
+                controller: "Signin",
+                templateUrl: "components/signin/partial.html"
             })
             .state("root.home", {
                 url: "/",
@@ -34,5 +35,11 @@
         $locationProvider.html5Mode(true);
         // $urlRouterProvider.otherwise("/template1");
         $urlRouterProvider.otherwise('/');
+
+        lockerProvider.defaults({
+            driver: 'session',
+            namespace: 'after-hours',
+            separator: '.'
+        });
     });
 })();
