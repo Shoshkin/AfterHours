@@ -43,8 +43,8 @@ namespace AfterHours.BE.Auth
                 return authResult;
             }
 
-            User user = context.Users.FirstOrDefault(entry => entry.Username == currUser.Username);
-            if (user == null)
+            User userFromDb = context.Users.FirstOrDefault(entry => entry.Username == userFromRequest.Username);
+            if (userFromDb == null)
             {
                 authResult.Result = UserAuthResult.UserNotRegistered;
                 return authResult;
