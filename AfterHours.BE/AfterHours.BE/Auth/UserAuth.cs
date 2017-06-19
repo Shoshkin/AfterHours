@@ -7,6 +7,12 @@ using System.Web;
 
 namespace AfterHours.BE.Auth
 {
+    public struct UserInfo
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+    }
+
     public enum UserAuthResult
     {
         UserNotRegistered,
@@ -16,10 +22,10 @@ namespace AfterHours.BE.Auth
 
     public static class UserAuth
     {
-        public static (string username, string password) ParseAuthorizationHeader(HttpRequestMessage request)
+        public static UserInfo ParseAuthorizationHeader(HttpRequestMessage request)
         {
             var tmp = request.Headers.Authorization.Parameter.Split(',');
-            return (tmp[0], tmp[1]);
+            return new UserInfo { UserName = tmp[0], Password = tmp[1] };
         }
 
         public static UserAuthResult IsUserAuth(EventsContext context, string username, string password)
