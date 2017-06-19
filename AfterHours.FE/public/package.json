@@ -1,0 +1,16 @@
+{
+  "name": "after-hours",
+  "version": "1.0.0",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@uirouter/angularjs": "^1.0.4",
+    "@uirouter/core": "^5.0.4",
+    "angular-ui-router": "^1.0.3"
+  }
+}
