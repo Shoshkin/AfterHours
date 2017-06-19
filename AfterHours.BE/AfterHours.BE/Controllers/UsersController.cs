@@ -19,14 +19,14 @@ namespace AfterHours.BE.Controllers
     {
         private EventsContext db = new EventsContext();
 
-        [ResponseType(typeof(User))]
+        [ResponseType(typeof(void))]
         [HttpPost]
         [Route("api/register")]
         public async Task<IHttpActionResult> Register(User user)
         {
             db.Users.Add(user);
             await db.SaveChangesAsync();
-            return CreatedAtRoute("DefaultApi", new { id = user.UserId }, user);
+            return Ok();
         }
 
         [ResponseType(typeof(void))]

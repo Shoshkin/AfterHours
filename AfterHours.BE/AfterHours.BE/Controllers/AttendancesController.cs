@@ -32,7 +32,7 @@ namespace AfterHours.BE.Controllers
 
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = attendance.AttendanceId }, attendance);
+            return Ok();
         }
 
         [ResponseType(typeof(void))]
