@@ -56,12 +56,15 @@
             var sidesIndex = 0;
             for (var event in _.sortBy(events, ["StartTime"])) {
                 sidesIndex++;
+                console.log(events[event]);
                 $scope.timeLineEvents.push({
                     badgeClass: 'danger',
                     eventId: events[event].EventId,
                     side: sides[sidesIndex % 2],
                     // attendees: events[event]
                     title: events[event].Name,
+                    currentAttandance: events[event].CurrentAttandance,
+                    maxAttandence: events[event].MaxAttandence,
                     place: events[event].Place,
                     startTime: events[event].StartTime,
                     tags: events[event].Tags

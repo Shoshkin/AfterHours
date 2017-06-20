@@ -58,27 +58,28 @@ tags-input .tags, .tags.focused {
     box-shadow: 0 0 6px 0 #ccc;
 }
 
-.box footer {
-    position: relative;
-    bottom: 28px;
-    color: #fff;
-    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
-}
+/*.timeline-wrapper {*/
+/*position: relative;*/
+/*bottom: 28px;*/
+/*color: #fff;*/
+/*background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.4) 100%);*/
+/*}*/
 
-.box footer span {
-    FONT-SIZE: 21PX;
-    position: relative;
-    bottom: 5px;
-    float: right;
-    right: 11px;
-}
+/*.box footer span {*/
+/*FONT-SIZE: 21PX;*/
+/*position: relative;*/
+/*bottom: 5px;*/
+/*float: right;*/
+/*right: 11px;*/
+/*}*/
 
-.box footer .tag {
-    float: left;
+.timeline-wrapper .tag {
     background-color: #1396e2;
+    color: #ffffff;
+    float: left;
     border-radius: 7px;
     font-size: 11px;
-    margin: -2px 0px 0px 11px;
+    margin: -21px 0px 0px 2px;
     padding: 5px 10px;
     font-weight: bold;
 }

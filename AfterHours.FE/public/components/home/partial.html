@@ -26,6 +26,9 @@
                 <timeline-heading>
                     <h4>{{event.title}}</h4>
                 </timeline-heading>
+                <div class="tag" ng-show="event.maxAttandence">
+                    {{event.currentAttandance}}/{{event.maxAttandence}}
+                </div>
                 <p>מיקום: {{event.place}}</p>
                 <p>זמן: {{event.startTime | date: "dd.MM.yyyy HH:mm" }}</p>
                 <div class="tags">
