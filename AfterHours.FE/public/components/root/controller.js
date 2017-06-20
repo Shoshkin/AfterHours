@@ -9,6 +9,12 @@
             return locker.has("session");
         };
 
+        $scope.logout = function()
+        {
+            locker.forget("session");
+            window.location.reload();
+        }
+
         $scope.loadTags = function (query) {
             return ApiComm.get("api/tags")
                 .then(function (response) {
