@@ -7,6 +7,8 @@
 
 .add h1
 {
+
+    padding-top: 30px;
   text-align: center;
 }
 
@@ -23,7 +25,7 @@
 
 .add hr.star-primary:after {
   background-color: #fff;
-  color: #2C3E50;
+    color: #de3d21;
 }
 
 .add hr.star-light:after, .add hr.star-primary:after {
@@ -34,6 +36,7 @@
   top: -.8em;
   font-size: 2em;
   padding: 0 .25em;
+    background-color: #dde0e8;
 }
 
 .form input, .form select
@@ -70,7 +73,7 @@ width: 100%;
 }
 
 .form input[type='submit'] {
-    background-color: #1396e2;
+    background-color: #de3d21;
     color: #fff;
     font-size: 17px;
     font-weight: bold;
