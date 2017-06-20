@@ -7,8 +7,8 @@
 
     <div class="search">
         <form method="get">
-            <tags-input type="text" placeholder="Search for tags..." on-tag-removed="updateEvents(previewEvents)"
-                        on-tag-added="updateEvents($tag)" ng-model="tags">
+            <tags-input type="text" placeholder="Search for tags..." on-tag-removed="tagRemoved($tag)"
+                        on-tag-added="tagAdded($tag)" ng-model="tags">
                 <auto-complete source="loadTags($query)"></auto-complete>
             </tags-input>
             <!--<input id="search-input" type="text" placeholder="Enter some text here..." />-->
@@ -16,20 +16,44 @@
     </div>
 </div>
 
-<div class="events">
-    <div class="box clickable" ng-repeat="event in previewEvents" ng-click="clickEvent(event.EventId)">
-        <img ng-src="assets/images/{{event.Category}}.jpg"/>
-        <footer>
-            <span>{{event.Name}}</span>
-            <div class="tag" ng-show="event.MaxAttandence">
-                {{event.CurrentAttandance}}/{{event.MaxAttandence}}
-            </div>
-            <div class="tag" ng-hide="event.MaxAttandence" dir="ltr">
-                 {{event.CurrentAttandance}} Attendees
-            </div>
-            <!--<div class="tag" ng-show="event.MinAttandence && event.CurrentAttandance < event.MinAttandence" dir="ltr">-->
-            <!--{{event.MinAttandence - event.CurrentAttandance}} more Attendees are needed-->
-            <!--</div>-->
-        </footer>
-    </div>
+<div class="timeline-wrapper">
+    <timeline dir="rtl">
+        <timeline-event ng-repeat="event in timeLineEvents" side={{event.side}}>
+            <timeline-badge class="{{event.badgeClass}}">
+                <i class="glyphicon {{event.badgeIconClass}}"></i>
+            </timeline-badge>
+            <timeline-panel ng-click="clickEvent(event.eventId)" class="clickable {{event.badgeClass}}">
+                <timeline-heading>
+                    <h4>{{event.title}}</h4>
+                </timeline-heading>
+                <p>מיקום: {{event.place}}</p>
+                <p>זמן: {{event.startTime | date: "dd.MM.yyyy HH:mm" }}</p>
+                <div class="tags">
+                    <ul>
+                        <li ng-repeat="tag in event.tags.split(',')">
+                            <div class="tag">#{{tag}}</div>
+                        </li>
+                    </ul>
+                </div>
+            </timeline-panel>
+        </timeline-event>
+    </timeline>
 </div>
+
+<!--<div class="events">-->
+<!--<div class="box clickable" ng-repeat="event in eventsToShow" ng-click="clickEvent(event.EventId)">-->
+<!--<img ng-src="assets/images/{{event.Category}}.jpg"/>-->
+<!--<footer>-->
+<!--<span>{{event.Name}}</span>-->
+<!--<div class="tag" ng-show="event.MaxAttandence">-->
+<!--{{event.CurrentAttandance}}/{{event.MaxAttandence}}-->
+            <!--</div>-->
+<!--<div class="tag" ng-hide="event.MaxAttandence" dir="ltr">-->
+<!--{{event.CurrentAttandance}} Attendees-->
+<!--</div>-->
+<!--&lt;!&ndash;<div class="tag" ng-show="event.MinAttandence && event.CurrentAttandance < event.MinAttandence" dir="ltr">&ndash;&gt;-->
+<!--&lt;!&ndash;{{event.MinAttandence - event.CurrentAttandance}} more Attendees are needed&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--</footer>-->
+<!--</div>-->
+<!--</div>-->

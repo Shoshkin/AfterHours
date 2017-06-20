@@ -1,5 +1,5 @@
-<div class="add" dir="rtl" style="width: 40%;">
-    <h1>כדורגל שני
+<div class="add" dir="rtl">
+    <h1>{{event.Name}}
 
         <span class="subscribe clickable" ng-show="isLoggedIn() && !isAttending()" ng-click="attend()">
     הירשם +
@@ -12,14 +12,15 @@
 
     <br>
     <h5>
-        האירוע יתקיים ב{{event.Place}} בתאריך {{event.StartTime}}
+        האירוע יתקיים ב{{event.Place}} בתאריך {{event.StartTime | date: "dd.MM.yyyy HH:mm"}}
          </h5>
     <p id="description">{{event.Description}}</p>
     <div class="tags">
         <ul>
             <li ng-repeat="tag in event.Tags.split(',')">
                 <div class="tag">#{{tag}}</div>
-</ul>
+            </li>
+        </ul>
     </div>
     <div class="users">
         <h3>משתמשים רשומים 

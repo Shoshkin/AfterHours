@@ -5,7 +5,8 @@
         'ui.router',
         // 'ui.bootstrap',
         'ngTagsInput',
-        'angular-locker'
+        'angular-locker',
+        'angular-timeline'
     ]);
     app.config.$inject = ["$locationProvider", "$stateProvider", "$urlRouterProvider", "lockerProvider"];
     app.config(function ($locationProvider, $stateProvider, $urlRouterProvider, lockerProvider) {

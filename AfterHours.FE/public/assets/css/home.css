@@ -87,3 +87,7 @@ tags-input .tags, .tags.focused {
     cursor: pointer;
 }
 
+.timeline-wrapper {
+    width: 50%;
+    margin: auto;
+}
