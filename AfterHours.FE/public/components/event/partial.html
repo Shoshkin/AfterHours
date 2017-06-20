@@ -1,5 +1,5 @@
-<div class="add" dir="rtl">
-    <h1>{{event.Name}}
+<div class="add" dir="rtl" style="width: 40%;">
+    <h1>כדורגל שני
 
         <span class="subscribe">
     הירשם +
@@ -7,24 +7,60 @@
     </h1>
 
     <br>
-    <h5>{{event.Category | toHebrew}}, {{event.Place | toHebrew}} {{event.StartTime}}</h5>
-    <p>{{event.Description}}</p>
+    <h5>מגרש כדורגל, 21/7/2012 18:00</h5>
+    <p id="description">סתם טקסט סתם טקסט סתם טקסט סתם טקסט סתם טקסט סתם טקסט סתם טקסט סתם טקסט סתם טקסט סתם טקסט סתם
+        טקסט סתם טקסט סתם טקסט</p>
     <div class="tags">
         <ul>
-            <li ng-repeat="tag in event.Tags.split(',')">
-                <div class="tag">#{{tag}}</div>
+            <li>
+                <div class="tag">#עדמתי</div>
+            </li>
+
+            <li>
+                <div class="tag">#כמהעוד</div>
+            </li>
+            <li>
+                <div class="tag">#למהאכלתי</div>
             </li>
         </ul>
     </div>
-    <div class="add-comment" ng-show="isLoggedIn()">
-        <form>
-            <input type="text" placeholder="הוסף הערה..." ng-model="comment">
-            <input type="submit" value="שלח" ng-click="sendComment()">
-        </form>
+    <div class="users">
+        <h3>משתמשים רשומים <span class="members">
+   3/21
+    </span></h3>
+        <ul id="users-list">
+            <li>אלון דורון</li>
+            <li>מקסים ניקולצה</li>
+            <li>אלון דורון</li>
+            <li>מקסים ניקולצה</li>
+            <li>אלון דורון</li>
+            <li>מקסים ניקולצה</li>
+            <li>אלון דורון</li>
+            <li>מקסים ניקולצה</li>
+            <li>אלון דורון</li>
+            <li>מקסים ניקולצה</li>
+            <li>אלון דורון</li>
+            <li>מקסים ניקולצה</li>
+            <li>אלון דורון</li>
+            <li>מקסים ניקולצה</li>
+            <li>אלון דורון</li>
+            <li>מקסים ניקולצה</li>
+            <li>אלון דורון</li>
+            <li>מקסים ניקולצה</li>
+        </ul>
     </div>
     <div class="comments">
+        <div class="add-comment">
+            <form>
+                <input type="text" placeholder="הוסף הערה..." ng-model="comment">
+                <input type="submit" value="שלח" ng-click="sendComment()">
+            </form>
+        </div>
         <ul>
-            <li ng-repeat="comment in event.Comments"><b>{{comment.Username}}: </b>{{comment.Content}}</li>
+            <li><b>יואב: </b>שלום לכלולם טודו בוםם</li>
+            <li><b>יואב: </b>שלום לכלולם טודו בוםם</li>
+            <li><b>יואב: </b>שלום לכלולם טודו בוםם</li>
+            <li><b>יואב: </b>שלום לכלולם טודו בוםם</li>
         </ul>
     </div>
 </div>
