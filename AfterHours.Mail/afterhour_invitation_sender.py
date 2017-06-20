@@ -12,5 +12,5 @@ invitation_subject = arguments[1]
 start_time = arguments[2]
 end_time = arguments[3]
 
-mail_subject = "AfterHour Invitation - {0}".format(invitation_subject)
+mail_subject = "AfterHours Invitation - {0}".format(invitation_subject)
 common_mail.send_invitation_message("afterhour.mailservice@gmail.com", 'Rambam123456', to_list, mail_subject, start_time, end_time, mail_subject, '')
