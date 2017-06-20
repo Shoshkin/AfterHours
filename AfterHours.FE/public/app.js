@@ -4,6 +4,7 @@
     var app = angular.module("AfterHours", [
         'ui.router',
         // 'ui.bootstrap',
+        'ngTagsInput',
         'angular-locker'
     ]);
     app.config.$inject = ["$locationProvider", "$stateProvider", "$urlRouterProvider", "lockerProvider"];

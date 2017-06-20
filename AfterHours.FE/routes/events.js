@@ -29,7 +29,10 @@ module.exports = function (apiUrl) {
     router.get('/:id', function (req, res, next) {
         makeRequest(
             {
-                uri: ulrJoin(apiUrl, baseUrl, req.params.id)
+                uri: ulrJoin(apiUrl, baseUrl, req.params.id),
+                headers: {
+                    'afterHoursAuth': req.headers.afterhoursauth
+                }
             }
         ).then(function (response) {
             res.send(response);
@@ -41,7 +44,11 @@ module.exports = function (apiUrl) {
             {
                 method: 'POST',
                 uri: ulrJoin(apiUrl, baseUrl),
-                body: req.body
+                headers: {
+                    'afterHoursAuth': req.headers.afterhoursauth
+                },
+                body: req.body,
+                json: true
             }
         ).then(function (response) {
             res.send(response);

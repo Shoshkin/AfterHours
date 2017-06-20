@@ -21,7 +21,11 @@ module.exports = function (apiUrl) {
             {
                 method: 'POST',
                 uri: ulrJoin(apiUrl, baseUrl),
-                body: req.body
+                body: req.body,
+                headers: {
+                    'afterHoursAuth': req.headers.afterHoursAuth
+                },
+                json: true
             }
         ).then(function (response) {
             res.send(response);
@@ -33,6 +37,9 @@ module.exports = function (apiUrl) {
             {
                 method: 'DELETE',
                 uri: ulrJoin(apiUrl, baseUrl, req.params.id),
+                headers: {
+                   'afterHoursAuth': req.headers.afterHoursAuth
+                },
                 body: req.body
             }
         ).then(function (response) {

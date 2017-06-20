@@ -1,12 +1,23 @@
 <div>
 
-    <div class="head">
+    <div class="head" dir="rtl">
         <div class="navigation">
             <ul>
-                <li><a href="#">ראשי</a></li>
-                <li id="last"><a href="#"><div class="tag">
-                  הוסף אירוע +
-                </div></a></li>
+                <li><a ui-sref="root.home">ראשי</a></li>
+                <li id="last" ng-show="isLoggedIn()">
+                    <a ui-sref="root.add">
+                        <div class="tag">
+                            הוסף אירוע +
+                        </div>
+                    </a>
+                </li>
+                <li id="first" ng-hide="isLoggedIn()">
+                    <a ui-sref="root.signin">
+                        <div class="tag">
+                                   התחבר
+                        </div>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

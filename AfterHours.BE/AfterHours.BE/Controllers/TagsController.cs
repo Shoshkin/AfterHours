@@ -19,9 +19,9 @@ namespace AfterHours.BE.Controllers
         private EventsContext db = new EventsContext();
 
         // GET: api/Tags
-        public IQueryable<Tag> GetTags()
+        public IQueryable<string> GetTags()
         {
-            return db.Tags;
+            return db.Tags.Select(x=>x.Value);
         }
 
         protected override void Dispose(bool disposing)

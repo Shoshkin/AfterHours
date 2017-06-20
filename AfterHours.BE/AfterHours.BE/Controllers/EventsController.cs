@@ -116,12 +116,18 @@ namespace AfterHours.BE.Controllers
                 return BadRequest(ModelState);
             }
 
-            var tags = @event.Tags.Split(',').Select(t => new Tag { Value = t });
-            foreach (var tag in tags)
+            if (@event.Tags != null)
             {
-                if (!db.Tags.Any(t => t.Value == tag.Value))
-                    db.Tags.Add(tag);
+                var tags = @event.Tags.Split(',').Select(t => new Tag { Value = t });
+                foreach (var tag in tags)
+                {
+                    if (!db.Tags.Any(t => t.Value == tag.Value))
+                        db.Tags.Add(tag);
+                }
             }
+
+            @event.CreateTime = DateTime.Now;
+            @event.IsOpen = true;
             db.Events.Add(@event);
             db.Attendances.Add(new Attendance { IsGoing = true, UserId = authResult.User.UserId, EventId = @event.EventId });
             db.Organizers.Add(new Organizer { EventId = @event.EventId, UserId = authResult.User.UserId });

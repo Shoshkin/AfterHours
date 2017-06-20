@@ -7,12 +7,16 @@
 
     <div class="search">
         <form method="get">
-            <input id="search-input" type="text" placeholder="Enter some text here..." />
+            <tags-input type="text" placeholder="Search for tags..." on-tag-removed="updateEvents(previewEvents)"
+                        on-tag-added="updateEvents($tag)" ng-model="tags">
+                <auto-complete source="loadTags($query)"></auto-complete>
+            </tags-input>
+            <!--<input id="search-input" type="text" placeholder="Enter some text here..." />-->
         </form>
     </div>
 </div>
 
-<div class="main">
+<div class="events">
     <div class="box" ng-repeat="event in previewEvents" ng-click="clickEvent(event.EventId)">
         <img src="http://blackrockdigital.github.io/startbootstrap-freelancer/img/portfolio/cabin.png" />
         <footer>

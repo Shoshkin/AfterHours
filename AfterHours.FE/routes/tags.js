@@ -4,7 +4,7 @@ var url = require("url");
 var ulrJoin = require("url-join");
 var router = express.Router();
 
-var baseUrl = "Login";
+var baseUrl = "Tags";
 
 var makeRequest = function (options) {
     return rp(options)
@@ -16,14 +16,13 @@ var makeRequest = function (options) {
         });
 };
 module.exports = function (apiUrl) {
-    router.post('/', function (req, res, next) {
+    router.get('/', function (req, res, next) {
         makeRequest(
             {
-                method: 'POST',
+                method: 'GET',
                 uri: ulrJoin(apiUrl, baseUrl),
-                body: req.body,
                 headers: {
-                    'afterHoursAuth': req.headers.afterhoursauth
+                    'afterHoursAuth': req.headers.afterHoursAuth
                 },
                 json: true
             }
@@ -31,5 +30,6 @@ module.exports = function (apiUrl) {
             res.send(response);
         });
     });
+
     return router;
 };
