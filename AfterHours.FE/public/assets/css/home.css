@@ -20,15 +20,6 @@
   font-size: 25px;
 }
 
-.search #search-input {
-  padding: 15px 20px 15px 20px;
-  width: 40%;
-  font-size: 15px;
-  border-radius: 19px;
-  margin-top: 4%;
-  border: 0;
-}
-
 .events
 {
   display: grid;
