@@ -22,5 +22,40 @@
                     });
             }
         };
+
+        $scope.isAttending = function(){
+
+            if($scope.event) {
+                var user = locker.get("session");
+                var all_usernames = _.map($scope.event.Users, function(u){return u.Username});
+                if(all_usernames.indexOf(user.username) != -1){
+                    return true;
+                }
+            }
+            
+            return false;
+        };
+
+        $scope.attend = function()
+        {
+            ApiComm.post("api/Attendances/" + $state.params.id, {})
+                    .then(function(){
+                        return ApiComm.get("api/events/" + $state.params.id);
+                    })
+                    .then(function (response) {
+                        $scope.event = response.data;
+                    });
+        };
+        
+        $scope.cancelAttend = function()
+        {
+            ApiComm.delete("api/Attendances/" + $state.params.id, {})
+                    .then(function(){
+                        return ApiComm.get("api/events/" + $state.params.id);
+                    })
+                    .then(function (response) {
+                        $scope.event = response.data;
+                    });
+        };
     });
 })();

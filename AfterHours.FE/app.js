@@ -24,12 +24,14 @@ var comments = require('./routes/comments');
 var signin = require('./routes/signin');
 var tags = require('./routes/tags');
 var signup = require('./routes/signup');
+var attendances = require('./routes/attendances');
 
 app.use('/api/events', events("http://localhost:55049/api/"));
 app.use('/api/comments', comments("http://localhost:55049/api/"));
 app.use('/api/signin', signin("http://localhost:55049/api/"));
 app.use('/api/tags', tags("http://localhost:55049/api/"));
 app.use('/api/signup', signup("http://localhost:55049/api/"));
+app.use('/api/attendances', attendances("http://localhost:55049/api/"));
 app.use("/", function (req, res) {
     // Use res.sendfile, as it streams instead of reading the file into memory.
     res.sendFile(__dirname + '/public/index.html');

@@ -4,7 +4,7 @@ var url = require("url");
 var ulrJoin = require("url-join");
 var router = express.Router();
 
-var baseUrl = "Organizers";
+var baseUrl = "Attendances";
 
 var makeRequest = function (options) {
     return rp(options)
@@ -12,16 +12,16 @@ var makeRequest = function (options) {
             return response;
         })
         .catch(function (err) {
-            console.log(err);
+            // console.log(err);
         });
 };
 module.exports = function (apiUrl) {
 
-    router.post('/', function (req, res, next) {
+    router.post('/:id', function (req, res, next) {
         makeRequest(
             {
                 method: 'POST',
-                uri: ulrJoin(apiUrl, baseUrl),
+                uri: ulrJoin(apiUrl, baseUrl, "?eventId=" + req.params.id),
                 body: req.body,
                 headers: {
                     'afterHoursAuth': req.headers.afterhoursauth
@@ -32,5 +32,22 @@ module.exports = function (apiUrl) {
             res.send(response);
         });
     });
+
+    router.delete('/:id', function (req, res, next) {
+        console.log(req.headers)
+        makeRequest(
+            {
+                method: 'DELETE',
+                uri: ulrJoin(apiUrl, baseUrl, "?eventId=" + req.params.id),
+                headers: {
+                    'afterHoursAuth': req.headers.afterhoursauth
+                },
+                json: true
+            }
+        ).then(function (response) {
+            res.send(response);
+        });
+    });
+
     return router;
 };

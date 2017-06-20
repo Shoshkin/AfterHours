@@ -78,7 +78,7 @@ namespace AfterHours.BE.Controllers
                 .Select(c => new EventComment() { Content = c.Content, Time = c.CommentTime, Username = c.User.Username })
                 .ToList(),
                 CurrentAttandance = GetAttendance(@event),
-                Users = db.Attendances.Where(a => a.EventId == @event.EventId)
+                Users = db.Attendances.Where(a => a.EventId == @event.EventId && a.IsGoing)
                 .AsEnumerable()
                 .Select(a => new AttendedUser()
                 {

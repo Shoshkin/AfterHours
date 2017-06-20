@@ -29,6 +29,18 @@
     color: #fff;
 }
 
+.cancel-subscribe {
+    font-size: 12px;
+    background-color: #de3d21;
+    border-radius: 7px;
+    position: relative;
+    top: 8px;
+    float: left;
+    padding: 5px 10px;
+    font-weight: bold;
+    color: #fff;
+}
+
 .add-comment {
     position: relative;
     top: 20px;
@@ -64,4 +76,18 @@
     border-bottom: 1px solid #d4d4d4;
     padding: 10px 0px 10px 0;
     font-size: 12px;
+}
+
+.boxed {
+    border: 1px solid green ;
+}
+
+table {
+    text-align: left;
+    border: 1px solid black;
+}
+
+table td {
+    text-align: left;
+    border: 1px solid black;
 }

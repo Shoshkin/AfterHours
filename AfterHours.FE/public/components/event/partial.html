@@ -1,9 +1,13 @@
 <div class="add" dir="rtl">
     <h1>{{event.Name}}
 
-        <span class="subscribe">
+        <span class="subscribe clickable" ng-show="isLoggedIn() && !isAttending()" ng-click="attend()">
     הירשם +
     </span>
+    <span class="cancel-subscribe clickable" ng-show="isLoggedIn() && isAttending()" ng-click="cancelAttend()">
+    - ביטול רישום 
+    </span>
+    
     </h1>
 
     <br>
@@ -23,8 +27,28 @@
         </form>
     </div>
     <div class="comments">
-        <ul>
-            <li ng-repeat="comment in event.Comments"><b>{{comment.Username}}: </b>{{comment.Content}}</li>
-        </ul>
+        <table>
+            <tr ng-repeat="comment in event.Comments">
+                <td>
+                <b>{{comment.Username}}</b>
+                </td>
+                <td>
+                    {{comment.Content}}
+                </td>
+                <td>
+                    {{comment.Time}}
+                </td>
+            </tr>
+        <!--<ul>
+            <li class="boxed" ng-repeat="comment in event.Comments">
+                <tr>
+                    <b>{{comment.Username}}: </b>{{comment.Content}}
+                </tr>
+                <tr>
+                    {{comment.Time}}
+                </tr>
+            </li>
+        </ul>-->
+        </table>
     </div>
 </div>

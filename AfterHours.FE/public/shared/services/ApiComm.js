@@ -20,5 +20,14 @@
 
             return $http.post(url, body, {headers: {'afterHoursAuth': username + "," + password}});
         };
+
+        this.delete = function (url, username, password) {
+            if (locker.has('session')) {
+                var user = locker.get('session');
+                return $http.delete(url, {headers: {'afterHoursAuth': user.username + "," + user.password}});
+            }
+
+            return $http.delete(url, body, {headers: {'afterHoursAuth': username + "," + password}});
+        };
     })
 })();
