@@ -1,5 +1,5 @@
 <div class="add" dir="rtl">
-    <h1>כדורגל
+    <h1>{{event.Name}}
 
         <span class="subscribe">
     הירשם +
@@ -7,33 +7,24 @@
     </h1>
 
     <br>
-    <h5>ספורט, מגרש כדורגל 21/6/2017 18:00</h5>
-    <p>איזה כיף פה איזה כיף פה איזה כיף פה איזה כף פה איזה כיף פה איזה כף פה איזה כיף פה איזה כף פה איזה כיף פה איזה כף
-        פה</p>
+    <h5>{{event.Category | toHebrew}}, {{event.Place | toHebrew}} {{event.StartTime}}</h5>
+    <p>{{event.Description}}</p>
     <div class="tags">
         <ul>
-            <li>
-                <div class="tag">#עדמתי</div>
-            </li>
-            <li>
-                <div class="tag">#כמה עוד</div>
-            </li>
-            <li>
-                <div class="tag">#למה אכלתי</div>
+            <li ng-repeat="tag in event.Tags.split(',')">
+                <div class="tag">#{{tag}}</div>
             </li>
         </ul>
     </div>
-    <div class="add-comment">
+    <div class="add-comment" ng-show="isLoggedIn()">
         <form>
-            <input type="text" placeholder="הוסף הערה...">
-            <input type="submit" value="שלח">
+            <input type="text" placeholder="הוסף הערה..." ng-model="comment">
+            <input type="submit" value="שלח" ng-click="sendComment()">
         </form>
     </div>
     <div class="comments">
         <ul>
-            <li><b>אלעד גילדנור: </b> קללל</li>
-            <li><b>אלון דורון: </b> ששששש.. הכל בסדר</li>
-            <li><b>גיל אלעזר: </b>עוגה בוגה עוגה בוגה</li>
+            <li ng-repeat="comment in event.Comments"><b>{{comment.Username}}: </b>{{comment.Content}}</li>
         </ul>
     </div>
 </div>

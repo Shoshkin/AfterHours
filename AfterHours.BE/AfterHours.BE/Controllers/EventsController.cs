@@ -66,8 +66,8 @@ namespace AfterHours.BE.Controllers
             {
                 Name = @event.EventName,
                 Place = @event.Place,
-                Category = @event.Place,
-                Description = @event.Place,
+                Category = @event.Category,
+                Description = @event.Description,
                 StartTime = @event.StartTime,
                 EndTime = @event.EndTime,
                 MinAttandence = @event.MinLimit,

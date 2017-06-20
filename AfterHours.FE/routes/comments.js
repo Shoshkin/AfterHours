@@ -16,14 +16,14 @@ var makeRequest = function (options) {
         });
 };
 module.exports = function (apiUrl) {
-    router.post('/', function (req, res, next) {
+    router.post('/:id', function (req, res, next) {
         makeRequest(
             {
                 method: 'POST',
-                uri: ulrJoin(apiUrl, baseUrl),
+                uri: ulrJoin(apiUrl, baseUrl, "?eventId=" + req.params.id),
                 body: req.body,
                 headers: {
-                    'afterHoursAuth': req.headers.afterHoursAuth
+                    'afterHoursAuth': req.headers.afterhoursauth
                 },
                 json: true
             }
@@ -38,7 +38,7 @@ module.exports = function (apiUrl) {
                 method: 'DELETE',
                 uri: ulrJoin(apiUrl, baseUrl, req.params.id),
                 headers: {
-                   'afterHoursAuth': req.headers.afterHoursAuth
+                   'afterHoursAuth': req.headers.afterhoursauth
                 },
                 body: req.body
             }

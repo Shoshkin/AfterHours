@@ -22,13 +22,14 @@ namespace AfterHours.BE.Controllers
 
         // POST: api/Comments
         [ResponseType(typeof(Comment))]
+        [HttpPost]
         public async Task<IHttpActionResult> PostAddComment(int eventId, EventComment comment)
         {
             AuthResult res = Auth.UserAuth.IsUserAuth(db, Request);
             if (res.Result != UserAuthResult.OK)
                 return Unauthorized();
 
-            Comment dbComment = new Comment { CommentTime = DateTime.Now, EventId = eventId, UserId = res.User.UserId };
+            Comment dbComment = new Comment { CommentTime = DateTime.Now, EventId = eventId, UserId = res.User.UserId, Content = comment.Content};
 
             db.Comments.Add(dbComment);
             await db.SaveChangesAsync();
@@ -38,6 +39,7 @@ namespace AfterHours.BE.Controllers
 
         // DELETE: api/Comments/5
         [ResponseType(typeof(Comment))]
+        [HttpDelete]
         public async Task<IHttpActionResult> DeleteComment(int id)
         {
             AuthResult res = Auth.UserAuth.IsUserAuth(db, Request);
