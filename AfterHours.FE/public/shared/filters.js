@@ -2,7 +2,10 @@
     var app = angular.module("AfterHours");
 
     var dictionary = {
-        "sport": "ספורט"
+        "sport": "ספורט",
+        "culture": "תרבות",
+        "science": "מדע",
+        "soccerField": "מגרש דשא"
     };
 
 
