@@ -26,7 +26,7 @@
                 templateUrl: "components/signin/partial.html"
             })
             .state("root.signup", {
-                url: "/signin",
+                url: "/signup",
                 controller: "Signup",
                 templateUrl: "components/signup/partial.html"
             })

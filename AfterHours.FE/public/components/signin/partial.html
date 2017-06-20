@@ -1,16 +1,16 @@
-<div class="add">
+<div class="add" dir="rtl">
     <h1>התחבר</h1>
     <hr class="star-primary">
     <div class="form">
         <form>
             <label>שם משתמש: </label>
             <br/>
-            <input type="text"/>
+            <input type="text" ng-model="user.Username"/>
             <br/>
             <label>סיסמה: </label>
             <br>
-            <input type="password">
-            <input type="submit" value="התחבר">
+            <input type="password" ng-model="user.Username"/>
+            <input type="submit" value="התחבר" ng-click="signin()">
         </form>
     </div>
 </div>
