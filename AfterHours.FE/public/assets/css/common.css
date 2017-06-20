@@ -68,3 +68,12 @@ width: 100%;
   display: inline-block;
   margin-bottom: 5px;
 }
+
+.form input[type='submit'] {
+    background-color: #1396e2;
+    color: #fff;
+    font-size: 17px;
+    font-weight: bold;
+    width: 100%;
+    box-shadow: 0 0 0 0;
+}

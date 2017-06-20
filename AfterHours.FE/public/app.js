@@ -25,6 +25,11 @@
                 controller: "Signin",
                 templateUrl: "components/signin/partial.html"
             })
+            .state("root.signup", {
+                url: "/signin",
+                controller: "Signup",
+                templateUrl: "components/signup/partial.html"
+            })
             .state("root.add", {
                 url: "/add",
                 controller: "Add",
