@@ -18,7 +18,7 @@
             .state("root.home", {
                 url: "/",
                 controller: "Home",
-                templateUrl: "components/home/partial.html"
+                templateUrl: "components/event/partial.html"
             })
             .state("root.signin", {
                 url: "/signin",
