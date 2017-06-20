@@ -14,7 +14,7 @@
     <h5>
         האירוע יתקיים ב{{event.Place}} בתאריך {{event.StartTime | date: "dd.MM.yyyy HH:mm"}}
          </h5>
-    <p id="description">{{event.Description}}</p>
+    <p id="description" ng-show="event.Description">{{event.Description}}</p>
     <div class="tags">
         <ul>
             <li ng-repeat="tag in event.Tags.split(',')">
@@ -24,7 +24,7 @@
     </div>
     <div class="users">
         <h3>משתמשים רשומים 
-            <span class="members" dir="ltr">
+            <span class="members" dir="rtl">
             <div>
                 {{event.CurrentAttandance}}/{{event.MaxAttandence}} מגיעים
             </div>

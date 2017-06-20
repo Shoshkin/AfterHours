@@ -25,9 +25,9 @@ namespace AfterHours.BE.Controllers
         // GET: api/Events
         public IEnumerable<PreviewEvent> GetEventsPreview()
         {
-            foreach (var e in db.Events.Where(e => e.IsOpen))
+            foreach (var e in db.Events.Where(e => e.IsOpen).OrderBy(e => e.StartTime))
             {
-                if (e.StartTime>=DateTime.Now)
+                if (e.StartTime >= DateTime.Now)
                 {
                     yield return new PreviewEvent()
                     {
@@ -46,9 +46,9 @@ namespace AfterHours.BE.Controllers
                 }
                 else
                 {
-                    e.IsOpen = false;                    
+                    e.IsOpen = false;
                 }
-                
+
             }
             db.SaveChanges();
         }
