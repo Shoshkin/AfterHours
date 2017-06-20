@@ -7,6 +7,10 @@
             <br/>
             <input type="text" ng-model="event.EventName"/>
             <br/>
+             <label>תיאור</label>
+            <br/>
+            <input type="text" ng-model="event.Description"/>
+            <br/>
             <label>מיקום</label>
             <br/>
             <input type="text" ng-model="event.Place"/>
@@ -21,15 +25,17 @@
             <input type="datetime-local" ng-model="event.EndTime"/>
             <br/>
 
+            <label>מספר משתתפים מינימלי</label>
+            <br/>
+            <input type="number" ng-model="event.MinLimit"/>
+            <br/>
+
             <label>מספר משתתפים מקסימלי</label>
             <br/>
             <input type="number" ng-model="event.MaxLimit"/>
             <br/>
 
-            <label>מספר משתתפים מינימלי</label>
-            <br/>
-            <input type="number" ng-model="event.MinLimit"/>
-            <br/>
+
 
             <label>תגיות</label>
             <br/>

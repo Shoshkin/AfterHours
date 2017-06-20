@@ -11,7 +11,9 @@
     </h1>
 
     <br>
-    <h5>{{event.Place}} {{event.StartTime}}</h5>
+    <h5>
+        האירוע יתקיים ב{{event.Place}} בתאריך {{event.StartTime}}
+         </h5>
     <p id="description">{{event.Description}}</p>
     <div class="tags">
         <ul>
@@ -20,60 +22,37 @@
 </ul>
     </div>
     <div class="users">
-        <h3>משתמשים רשומים <span class="members">
-   3/21
-    </span></h3>
+        <h3>משתמשים רשומים 
+            <span class="members" dir="ltr">
+            <div>
+                {{event.CurrentAttandance}}/{{event.MaxAttandence}} מגיעים
+            </div>
+            <div ng-show="event.MinAttandence">
+                לפחות {{event.MinAttandence}} אנשים דרושים לקיום האירוע
+            </div>
+            </span>
+        </h3>
         <ul id="users-list">
-            <li>אלון דורון</li>
-            <li>מקסים ניקולצה</li>
-            <li>אלון דורון</li>
-            <li>מקסים ניקולצה</li>
-            <li>אלון דורון</li>
-            <li>מקסים ניקולצה</li>
-            <li>אלון דורון</li>
-            <li>מקסים ניקולצה</li>
-            <li>אלון דורון</li>
-            <li>מקסים ניקולצה</li>
-            <li>אלון דורון</li>
-            <li>מקסים ניקולצה</li>
-            <li>אלון דורון</li>
-            <li>מקסים ניקולצה</li>
-            <li>אלון דורון</li>
-            <li>מקסים ניקולצה</li>
-            <li>אלון דורון</li>
-            <li>מקסים ניקולצה</li>
+            <li ng-repeat="user in event.Users" ng-class="{'organizer': user.IsOrganizer}">
+                {{user.Username}}
+            </li>
         </ul>
     </div>
     
+
+    <div class="comments" dir="rtl">
     <div class="add-comment" ng-show="isLoggedIn()">
         <form>
             <input type="text" placeholder="הוסף הערה..." ng-model="comment">
             <input type="submit" value="שלח" ng-click="sendComment()">
         </form>
     </div>
-    <div class="comments">
-        <table>
-            <tr ng-repeat="comment in event.Comments">
-                <td>
-                <b>{{comment.Username}}</b>
-                </td>
-                <td>
-                    {{comment.Content}}
-                </td>
-                <td>
-                    {{comment.Time}}
-                </td>
-            </tr>
-        <!--<ul>
-            <li class="boxed" ng-repeat="comment in event.Comments">
-                <tr>
-                    <b>{{comment.Username}}: </b>{{comment.Content}}
-                </tr>
-                <tr>
-                    {{comment.Time}}
-                </tr>
-            </li>
-        </ul>-->
-        </table>
-    </div>
+
+        <ul>
+            <li ng-repeat="comment in event.Comments"><b>{{comment.Username}}: </b>{{comment.Content}}</li>
+        </ul>
+
+
 </div>
+</div>
+
