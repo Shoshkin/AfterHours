@@ -36,7 +36,7 @@
                 templateUrl: "components/add/partial.html"
             })
             .state("root.event", {
-                url: "/event",
+                url: "/event/:id",
                 params: {
                   id: null
                 },

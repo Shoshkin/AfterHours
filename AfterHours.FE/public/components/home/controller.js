@@ -11,7 +11,7 @@
                 console.log(response);
             });
 
-        ApiComm.clickEvent = function (eventId) {
+        $scope.clickEvent = function (eventId) {
             $state.go("root.event", {"id": eventId});
         };
 
