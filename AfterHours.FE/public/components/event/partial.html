@@ -7,7 +7,7 @@
     </h1>
 
     <br>
-    <h5>{{event.Category | toHebrew}}, {{event.Place | toHebrew}} {{event.StartTime}}</h5>
+    <h5>{{event.Category | toHebrew}}, {{event.Place | toHebrew}} {{event.StartTime | date: "dd.MM.yyyy HH:mm"}}</h5>
     <p>{{event.Description}}</p>
     <div class="tags">
         <ul>

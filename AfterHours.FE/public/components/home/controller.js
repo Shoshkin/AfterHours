@@ -2,11 +2,13 @@
     'use strict';
 
     var app = angular.module("AfterHours");
-    app.$inject = ["$scope", "$state", "ApiComm"];
-    app.controller("Home", function ($scope, $state, ApiComm) {
+    app.$inject = ["$scope", "$state", "ApiComm", "$filter"];
+    app.controller("Home", function ($scope, $state, ApiComm, $filter) {
         ApiComm.get("api/events")
             .then(function successCallback(response) {
-                $scope.previewEvents = $scope.filterEventsByTags(response.data, $scope.tags);
+                $scope.previewEvents = response.data;
+                $scope.eventsToShow = $scope.filterEventsByTags($scope.previewEvents, $scope.tags);
+                $scope.eventsToTimeline($scope.eventsToShow);
             }, function fail(response) {
                 console.log(response);
             });
@@ -27,17 +29,44 @@
                     return false;
                 });
             }
-
-            return events
-            // _.filter(events, function (e) {return tags.split()})
+            return events;
         };
 
-        $scope.updateEvents = function (tag) {
+        $scope.tagRemoved = function (tag) {
+            if (tag in $scope.tags) {
+                $scope.tags.remove(tag);
+            }
+
+            $scope.eventsToTimeline($scope.filterEventsByTags($scope.previewEvents, $scope.tags));
+            $scope.eventsToShow = $scope.filterEventsByTags($scope.previewEvents, $scope.tags);
+        };
+
+        $scope.tagAdded = function (tag) {
             if (!$scope.tags) {
                 $scope.tags = [tag];
             }
 
-            return $scope.previewEvents = $scope.filterEventsByTags($scope.previewEvents, $scope.tags);
+            $scope.eventsToTimeline($scope.filterEventsByTags($scope.previewEvents, $scope.tags));
+            $scope.eventsToShow = $scope.filterEventsByTags($scope.previewEvents, $scope.tags);
+        };
+
+        $scope.eventsToTimeline = function (events) {
+            $scope.timeLineEvents = [];
+            var sides = ["left", "right"];
+            var sidesIndex = 0;
+            for (var event in _.sortBy(events, ["StartTime"])) {
+                sidesIndex++;
+                $scope.timeLineEvents.push({
+                    badgeClass: 'danger',
+                    eventId: events[event].EventId,
+                    side: sides[sidesIndex % 2],
+                    // attendees: events[event]
+                    title: events[event].Name,
+                    place: events[event].Place,
+                    startTime: events[event].StartTime,
+                    tags: events[event].Tags
+                });
+            }
         };
     });
 })();
