@@ -58,41 +58,6 @@ font-weight: bold;
 color: #fff;
 }
 
-.container
-{
-  text-align: center;
-  background-color: #272a4e;
-  padding: 50px;
-}
-
-.slogan
-{
-  color: #fff;
-  text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
-}
-
-.slogan h1
-{
-  margin: 0;
-  font-size: 6em;
-}
-
-.slogan h2
-{
-  font-family: monospace;
-  font-size: 25px;
-}
-
-.search #search-input
-{
-    padding: 15px 20px 15px 20px;
-    width: 40%;
-    font-size: 15px;
-    border-radius: 19px;
-    margin-top: 4%;
-    border: 0;
-}
-
 .footer
 {
   margin-top: 30px;
