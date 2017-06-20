@@ -156,6 +156,7 @@ a {
 }
 
  .add hr.star-light:after, .add hr.star-primary:after {
+     background-color: #eee;
     content: "\f005";
     font-family: FontAwesome;
     display: inline-block;
