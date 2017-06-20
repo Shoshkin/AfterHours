@@ -12,7 +12,8 @@ var makeRequest = function (options) {
             return response;
         })
         .catch(function (err) {
-            console.log(err);
+            err.statusCode = err.data.statusCode;
+            return err;
         });
 };
 module.exports = function (apiUrl) {

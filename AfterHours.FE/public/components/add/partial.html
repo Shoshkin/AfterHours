@@ -42,15 +42,17 @@
             <select ng-model="event.Category">
                 <option value="sport">ספורט</option>
                 <option value="culture">תרבות</option>
+                <option value="science">מדע וטכנולוגיה</option>
+                <option value="entertainment">בילוי</option>
             </select>
             <br/>
 
             <label>תגיות</label>
             <br/>
             <input type="text" ng-model="event.Tags"/>
-      <br>
-      <input type="submit">
-            <button ng-click="postEvent()">שלח</button>
+            <br>
+            <!--<input type="submit">-->
+            <input type="submit" ng-click="postEvent()" value="שלח"/>
         </form>
     </div>
 </div>

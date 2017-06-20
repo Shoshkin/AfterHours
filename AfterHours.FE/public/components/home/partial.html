@@ -17,8 +17,8 @@
 </div>
 
 <div class="events">
-    <div class="box" ng-repeat="event in previewEvents" ng-click="clickEvent(event.EventId)">
-        <img src="http://blackrockdigital.github.io/startbootstrap-freelancer/img/portfolio/cabin.png" />
+    <div class="box clickable" ng-repeat="event in previewEvents" ng-click="clickEvent(event.EventId)">
+        <img ng-src="assets/images/{{event.Category}}.jpg"/>
         <footer>
             <span>{{event.Name}}</span>
             <div class="tag" ng-show="event.MaxAttandence">
@@ -27,9 +27,9 @@
             <div class="tag" ng-hide="event.MaxAttandence" dir="ltr">
                  {{event.CurrentAttandance}} Attendees
             </div>
-            <div class="tag" ng-show="event.MinAttandence && event.CurrentAttandance < event.MinAttandence" dir="ltr">
-                 {{event.MinAttandence - event.CurrentAttandance}} more Attendees are needed
-            </div>
+            <!--<div class="tag" ng-show="event.MinAttandence && event.CurrentAttandance < event.MinAttandence" dir="ltr">-->
+            <!--{{event.MinAttandence - event.CurrentAttandance}} more Attendees are needed-->
+            <!--</div>-->
         </footer>
     </div>
 </div>
