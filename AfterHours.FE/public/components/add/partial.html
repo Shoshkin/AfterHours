@@ -9,13 +9,7 @@
             <br/>
             <label>מיקום</label>
             <br/>
-            <select ng-model="event.Place">
-                <option value="soccerField">מגרש דשא</option>
-                <option value="basketBallField">מגרש כדורסל</option>
-                <option value="threeRainbow">אולם שלושת הקשתות</option>
-                <option value="hadan80">חדן 80</option>
-                <option value="other">אחר</option>
-            </select>
+            <input type="text" ng-model="event.Place"/>
             <br/>
             <label>זמן התחלה</label>
             <br/>
@@ -35,16 +29,6 @@
             <label>מספר משתתפים מינימלי</label>
             <br/>
             <input type="number" ng-model="event.MinLimit"/>
-            <br/>
-
-            <label>קטגוריה</label>
-            <br/>
-            <select ng-model="event.Category">
-                <option value="sport">ספורט</option>
-                <option value="culture">תרבות</option>
-                <option value="science">מדע וטכנולוגיה</option>
-                <option value="entertainment">בילוי</option>
-            </select>
             <br/>
 
             <label>תגיות</label>
