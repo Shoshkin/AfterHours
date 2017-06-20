@@ -1,4 +1,4 @@
-<div class="container">
+<div class="home-screen">
 
     <div class="slogan">
         <h1>After Hours</h1>
@@ -7,20 +7,22 @@
 
     <div class="search">
         <form method="get">
-            <input id="search-input" type="text" placeholder="Enter some text here..."/>
+            <input id="search-input" type="text" placeholder="Enter some text here..." />
         </form>
     </div>
 </div>
 
 <div class="main">
-  <div class="box">
+    <div class="box" ng-repeat="event in previewEvents">
         <img src="http://blackrockdigital.github.io/startbootstrap-freelancer/img/portfolio/cabin.png" />
-        <footer><span>
-כדורגל        </span>
-<div class="tag">
-  3/21
-</div>
-
-</footer>
-  </div>
+        <footer>
+            <span>{{event.Name}}</span>
+            <div class="tag" ng-show="event.MaxAttandence">
+                {{event.CurrentAttandance}}/{{event.MaxAttandence}}
+            </div>
+            <div class="tag" ng-hide="event.MaxAttandence" dir="ltr">
+                 {{event.CurrentAttandance}} Attendees
+            </div>
+        </footer>
+    </div>
 </div>
