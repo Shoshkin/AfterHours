@@ -127,6 +127,11 @@ namespace AfterHours.BE.Controllers
             db.Organizers.Add(new Organizer { EventId = @event.EventId, UserId = authResult.User.UserId });
             await db.SaveChangesAsync();
 
+            if (!@event.MinLimit.HasValue || @event.MinLimit == 1)
+            {
+                EmailSender.SendInvitationEmail(@event.EventName, new string[] { authResult.User.Email }, @event.StartTime, @event.EndTime);
+            }
+
             return CreatedAtRoute("DefaultApi", new { id = @event.EventId }, @event);
         }
 

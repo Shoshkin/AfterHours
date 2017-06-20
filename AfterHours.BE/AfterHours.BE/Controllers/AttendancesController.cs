@@ -31,12 +31,17 @@ namespace AfterHours.BE.Controllers
             bool isAlreadyAttended = db.Attendances.Any(x => x.EventId == eventId && x.UserId == res.User.UserId);
             if (!isAlreadyAttended)
             {
+                Event eventAttended = db.Events.Find(eventId);
+                if(eventAttended.MaxLimit.HasValue && db.Attendances.Count(x=>x.EventId == eventId) >= eventAttended.MaxLimit)
+                {
+                    return BadRequest("no more space left for this event");
+                }
+
                 Attendance attendance = new Attendance { UserId = res.User.UserId, EventId = eventId, IsGoing = true };
                 db.Attendances.Add(attendance);
 
                 await db.SaveChangesAsync();
 
-                Event eventAttended = db.Events.Single(x => x.EventId == eventId);
                 List<User> currentPeopleInEvent = db.Attendances.Where(x => x.EventId == eventId)
                     .Select(x=>x.User).ToList();
 
