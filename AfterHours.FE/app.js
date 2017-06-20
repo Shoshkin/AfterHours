@@ -20,8 +20,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 var events = require('./routes/events');
-app.use('/api/events', events("http://1.1.0.119:9000/api/"));
+app.use('/api/events', events("http://localhost:55049/api/"));
+app.use("/", function (req, res) {
+    // Use res.sendfile, as it streams instead of reading the file into memory.
+    res.sendFile(__dirname + '/public/index.html');
+});
 // app.use('/api/events', index);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

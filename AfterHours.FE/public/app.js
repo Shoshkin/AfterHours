@@ -28,6 +28,14 @@
                 url: "/add",
                 controller: "Add",
                 templateUrl: "components/add/partial.html"
+            })
+            .state("root.event", {
+                url: "/event",
+                params: {
+                  id: null
+                },
+                controller: "Event",
+                templateUrl: "components/event/partial.html"
             });
 
 
